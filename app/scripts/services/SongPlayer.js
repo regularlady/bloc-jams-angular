@@ -58,6 +58,15 @@
         };
 
         /**
+        * @function stopSong
+        * @desc encapsulates song stopping behavior
+        * @param {Object} song
+        */
+        var stopSong = function(song) {
+          stopSong(SongPlayer.currentSong);
+        };
+
+        /**
         @function: SongPlayer.play (public method)
         @desc: If a new song is selected, uses setSong and playSong. If song is paused, plays currentBuzzObject.
         @param: {Object} song
@@ -95,8 +104,7 @@
             currentSongIndex--;
 
             if (currentSongIndex < 0) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
+                stopSong(SongPlayer.currentSong);
             }
             else {
                 var song = currentAlbum.songs[currentSongIndex];
@@ -104,6 +112,24 @@
                 playSong(song);
             }
         };
+
+          /*
+          * @function SongPlayer.next
+          * @desc selects next song in song list and plays/pauses accoordingly
+          */
+
+          SongPlayer.next = function() {
+            var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+            currentSongIndex++;
+
+            if (currentSongIndex > currentAlbum.songs.length) {
+              stopSong(SongPlayer.currentSong);
+            } else {
+              var song = currentAlbum.songs[currentSongIndex];
+              setSong(song);
+              playSong(song);
+            }
+          };
 
         return SongPlayer;
 
