@@ -2,6 +2,10 @@
     function SongPlayer() {
         var SongPlayer = {};
 
+        /**
+        @desc: data for currently playing or paused song (number, title, duration)
+        @type: {Object}
+        **/
         var currentSong = null;
 
         /**
@@ -28,13 +32,25 @@
 
             currentSong = song;
         };
+        /**
+        @function: playSong (private)
+        @desc: sets song attribute playing to true and plays currentBuzzObject
+        @param: {Object} song
+        **/
+        var playSong = function(song) {
+            currentBuzzObject.play();
+            song.playing = true;
+        };
 
+        /**
+        @function: SongPlayer.play (public method)
+        @desc: If a new song is selected, uses setSong and playSong. If song is paused, plays currentBuzzObject.
+        @param: {Object} song
+        **/
         SongPlayer.play = function(song) {
             if (currentSong !== song) {
                 setSong(song);
-
-                currentBuzzObject.play();
-                song.playing = true;
+                playSong(song);
             }
             else if (currentSong === song) {
                 if (currentBuzzObject.isPaused()) {
@@ -43,6 +59,11 @@
             }
         };
 
+        /**
+        @function: SongPlayer.pause (public method)
+        @desc: Pauses currentBuzzObject and sets song.playing to false
+        @param: {Object} song
+        **/
         SongPlayer.pause = function(song) {
         currentBuzzObject.pause();
         song.playing = false;
