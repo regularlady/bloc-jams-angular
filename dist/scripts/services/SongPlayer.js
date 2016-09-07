@@ -60,7 +60,9 @@
                 $rootScope.$apply(function() {
                     SongPlayer.currentTime = currentBuzzObject.getTime();
                 });
-            });
+            }).bind('ended', function() {
+              SongPlayer.next();
+          });
 
             SongPlayer.currentSong = song;
         };
@@ -142,6 +144,7 @@
 
             if(currentSongIndex === currentAlbum.songs.length) {
                 stopSong(SongPlayer.currentSong);
+                setSong(currentAlbum.songs[0]);
             }
             else {
                 var song = currentAlbum.songs[currentSongIndex];
