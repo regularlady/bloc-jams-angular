@@ -150,6 +150,28 @@
             }
         };
 
+        /**
+        * @function SongPlayer.mute
+        * @desc lets the user mute the current song playing
+        * @param {Object} song
+        */
+        SongPlayer.mute = function(song) {
+            song = song || SongPlayer.currentSong
+            currentBuzzObject.mute();
+            song.isMuted = true;
+        }
+
+        /**
+        * @function SongPlayer.unmute
+        * @desc lets the user unmute the current song playing
+        * @param {Object} song
+        */
+        SongPlayer.unmute = function(song) {
+            song = song || SongPlayer.currentSong
+            currentBuzzObject.unmute();
+            song.isMuted = false;
+        }
+
         return SongPlayer;
 
     };
